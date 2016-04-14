@@ -2,6 +2,17 @@ set nocompatible              " be iMproved, required
 set number		      " set line numbers
 filetype off                  " required
 
+set tabstop=2
+
+" tab indents are 2
+set shiftwidth=2    
+
+" columns for a tab
+set softtabstop=2   
+
+" expand existing tabs to spaces
+set expandtab       
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
