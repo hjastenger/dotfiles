@@ -25,6 +25,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'github-theme'
 " Nerdtree navigation plugin.
 Plugin 'The-NERD-tree'
+" Ruby auto add end statements plugin
+Plugin 'endwise.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
