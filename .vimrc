@@ -27,6 +27,14 @@ Plugin 'github-theme'
 Plugin 'The-NERD-tree'
 " Ruby auto add end statements plugin
 Plugin 'endwise.vim'
+" Vim Airline
+Plugin 'vim-airline/vim-airline'
+" Vim airline-themes
+Plugin 'vim-airline/vim-airline-themes'
+" Plugin to preserve window arrangement after closing buffers
+Plugin 'apkorr/vim-bufkill'
+" Vim Indent-Guides
+Plugin 'Indent-Guides'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -56,6 +64,11 @@ let NERDTreeMapOpenInTab='\t'
 " Use tab to switch between navigation and editor
 nnoremap <tab> <c-w>w
 
+" Buffer management
+map gn :bn<cr>
+map gp :bp<cr>
+map gd :bd<cr>
+
 " Save
 inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
@@ -63,19 +76,5 @@ nnoremap <C-s>     :update<cr>
 " Start NERDTree when VIM launches
 autocmd VimEnter * NERDTree
 
-" Automatically close NERDTree after last buffer is closed.
-" Link: http://stackoverflow.com/questions/2066590/automatically-quit-vim-if-nerdtree-is-last-and-only-buffer
-function! s:CloseIfOnlyControlWinLeft()
-  if winnr("$") != 1
-    return
-  endif
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-        \ || &buftype == 'quickfix'
-    q
-  endif
-endfunction
-augroup CloseIfOnlyControlWinLeft
-  au!
-  au BufEnter * call s:CloseIfOnlyControlWinLeft()
-augroup END
-
+" Start Indent-Guides when VIM launches
+autocmd VimEnter * IndentGuidesEnable
