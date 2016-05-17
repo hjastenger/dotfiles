@@ -32,7 +32,7 @@ Plugin 'vim-airline/vim-airline'
 " Vim airline-themes
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin to preserve window arrangement after closing buffers
-Plugin 'apkorr/vim-bufkill'
+Plugin 'bufkill.vim'
 " Vim Indent-Guides
 Plugin 'Indent-Guides'
 
@@ -67,7 +67,7 @@ nnoremap <tab> <c-w>w
 " Buffer management
 map gn :bn<cr>
 map gp :bp<cr>
-map gd :bd<cr>
+map gd :BD<cr>
 
 " Save
 inoremap <C-s>     <C-O>:update<cr>
