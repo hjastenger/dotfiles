@@ -32,7 +32,7 @@ Plugin 'vim-airline/vim-airline'
 " Vim airline-themes
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin to preserve window arrangement after closing buffers
-Plugin 'apkorr/vim-bufkill'
+Plugin 'bufkill.vim'
 " Vim Indent-Guides
 Plugin 'Indent-Guides'
 
@@ -53,21 +53,38 @@ filetype plugin indent on    " required
 " colorscheme
 colorscheme github
 
+" NERDTree settings.
+" ------------------
+
 " Set nerdtree direction arrow to not be used as fonts.
 let g:NERDTreeDirArrows=0
+
 " Switch between nerdtree and editor using tabs.
 let NERDTreeMapOpenInTab='\t'
+
+" Keep NerdTree to the left.
+let g:NERDTreeWinPos = "left"
+
+" Airline settings.
+" ------------------
+
+" Enable VIM Airline on default
+let g:airline#extensions#tabline#enabled = 1
+
+" Show buffer indices in VIM Airline
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " Use jj to escape
 :imap jj <Esc>
 
-" Use tab to switch between navigation and editor
+" Use tab and shift to cycle. 
 nnoremap <tab> <c-w>w
+nnoremap <S-tab> <c-w>W
 
 " Buffer management
 map gn :bn<cr>
 map gp :bp<cr>
-map gd :bd<cr>
+map gd :BD<cr>
 
 " Save
 inoremap <C-s>     <C-O>:update<cr>
