@@ -1,44 +1,44 @@
+let t_Co=256
 set nocompatible              " be iMproved, required
-set number		      " set line numbers
+set number              " set line numbers
 filetype off                  " required
 
 set tabstop=2
 
 " tab indents are 2
-set shiftwidth=2    
+set shiftwidth=2
 
 " columns for a tab
-set softtabstop=2   
+set softtabstop=2
 
 " expand existing tabs to spaces
-set expandtab       
+set expandtab
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" VIM fugitive git plugin.
-Plugin 'tpope/vim-fugitive'
-" Github color scheme.
-Plugin 'github-theme'
-" Nerdtree navigation plugin.
-Plugin 'The-NERD-tree'
-" Ruby auto add end statements plugin
-Plugin 'endwise.vim'
-" Vim Airline
-Plugin 'vim-airline/vim-airline'
-" Vim airline-themes
-Plugin 'vim-airline/vim-airline-themes'
-" Plugin to preserve window arrangement after closing buffers
 Plugin 'bufkill.vim'
-" Vim Indent-Guides
-Plugin 'Indent-Guides'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'delimitMate.vim'
+Plugin 'endwise.vim'
+Plugin 'github-theme'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'
+Plugin 'Solarized'
+Plugin 'The-NERD-tree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+syntax enable
+let mapleader = ","
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -52,19 +52,25 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 " colorscheme
-colorscheme github
+set background=light
+colorscheme solarized
+
+set mouse=a
+set scrolloff=5
+set ttyfast
 
 " NERDTree settings.
 " ------------------
 
 " Set nerdtree direction arrow to not be used as fonts.
-let g:NERDTreeDirArrows=0
+" let g:NERDTreeDirArrows=0
 
 " Switch between nerdtree and editor using tabs.
 let NERDTreeMapOpenInTab='\t'
 
 " Keep NerdTree to the left.
 let g:NERDTreeWinPos = "left"
+let g:formatters_javascript = ['jscs']
 
 " Dont show .pyc files.
 let NERDTreeIgnore = ['\.pyc$']
@@ -78,10 +84,13 @@ let g:airline#extensions#tabline#enabled = 1
 " Show buffer indices in VIM Airline
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
+let g:airline_theme='solarized'
+let g:solarized_termcolors = 256
+
 " Use jj to escape
 :imap jj <Esc>
 
-" Use tab and shift to cycle. 
+" Use tab and shift to cycle.
 nnoremap <tab> <c-w>w
 nnoremap <S-tab> <c-w>W
 
@@ -90,12 +99,12 @@ map gn :bn<cr>
 map gp :bp<cr>
 map gd :BD<cr>
 
-" Save
-inoremap <C-s>     <C-O>:update<cr>
-nnoremap <C-s>     :update<cr>
-
-" Start NERDTree when VIM launches
-autocmd VimEnter * NERDTree
-
-" Start Indent-Guides when VIM launches
-autocmd VimEnter * IndentGuidesEnable
+" Reload VIM
+noremap <Leader>r :so $MYVIMRC<CR>
+noremap <Leader>m :NERDTreeTabsToggle<CR>
+noremap <Leader>s :update<CR>
+noremap <Leader>S :wq<CR>
+noremap <Leader>e :q<CR>
+noremap <Leader>E :q!<CR>
+noremap <D-s> :w<CR>
+noremap <Leader>A :Autoformat<CR>
