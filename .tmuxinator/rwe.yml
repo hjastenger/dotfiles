@@ -1,0 +1,15 @@
+name: rwe
+root: ~/Code/Javascript/react-webpack-express
+windows:
+  - editor:
+      layout: c7f8,316x80,0,0{225x80,0,0,3,90x80,226,0[90x26,226,0,4,90x25,226,27,5,90x27,226,53,6]}
+      panes:
+        - vim
+        - webpack-dev-server
+        - npm start
+        - 
+  - processes:
+      layout: main-vertical
+      panes:
+        - pg_ctl start
+        - pg_ctl status
