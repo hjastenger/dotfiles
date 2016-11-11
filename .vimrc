@@ -14,6 +14,8 @@ set softtabstop=2
 " expand existing tabs to spaces
 set expandtab
 
+set shell=/bin/sh
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -28,11 +30,12 @@ Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Solarized'
 Plugin 'The-NERD-tree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -40,24 +43,32 @@ syntax enable
 let mapleader = ","
 
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-" colorscheme
+filetype plugin on
 set background=light
 colorscheme solarized
+
+set clipboard=unnamed
 
 set mouse=a
 set scrolloff=5
 set ttyfast
+
+set backup                         " enable backup
+set undofile                       " enable persistent undo
+set backupdir=~/.vim/backup
+set directory=~/.vim/tmp
+set undodir=~/.vim/undo
+
+set scrolloff=5
+
+" change cursor when in insert mode (also works in tmux)
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " NERDTree settings.
 " ------------------
@@ -75,6 +86,12 @@ let g:formatters_javascript = ['jscs']
 " Dont show .pyc files.
 let NERDTreeIgnore = ['\.pyc$']
 
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
 " Airline settings.
 " ------------------
 
@@ -88,23 +105,30 @@ let g:airline_theme='solarized'
 let g:solarized_termcolors = 256
 
 " Use jj to escape
-:imap jj <Esc>
+imap jj <Esc>
 
 " Use tab and shift to cycle.
 nnoremap <tab> <c-w>w
 nnoremap <S-tab> <c-w>W
 
 " Buffer management
-map gn :bn<cr>
-map gp :bp<cr>
-map gd :BD<cr>
+noremap gn :bn<cr>
+noremap gp :bp<cr>
+noremap gd :BD<cr>
 
 " Reload VIM
-noremap <Leader>r :so $MYVIMRC<CR>
-noremap <Leader>m :NERDTreeTabsToggle<CR>
-noremap <Leader>s :update<CR>
-noremap <Leader>S :wq<CR>
-noremap <Leader>e :q<CR>
-noremap <Leader>E :q!<CR>
-noremap <D-s> :w<CR>
-noremap <Leader>A :Autoformat<CR>
+nnoremap <leader>r :so $MYVIMRC<cr>
+nnoremap <leader><leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>m :NERDTreeTabsToggle<cr>
+nnoremap <leader>s :w<cr>
+nnoremap <leader><leader> :w<cr>
+nnoremap <leader>S :wq<cr>
+nnoremap <leader>e :quit<cr>
+nnoremap <leader>E :quit!<cr>
+nnoremap <leader>A :Autoformat<cr>
+
+" ,o add empty line below without entering insert mode
+nnoremap <leader>o o<ESC>
+
+" " ,O add empty line below without entering insert mode
+nnoremap <leader>O O<ESC>
