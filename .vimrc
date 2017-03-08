@@ -85,7 +85,7 @@ let g:NERDTreeWinPos = "left"
 let g:formatters_javascript = ['jscs']
 
 " Dont show .pyc files.
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.aux']
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -122,7 +122,6 @@ nnoremap <leader>r :so $MYVIMRC<cr>
 nnoremap <leader><leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>m :NERDTreeTabsToggle<cr>
 nnoremap <leader>s :w<cr>
-nnoremap <leader><leader> :w<cr>
 nnoremap <leader>S :wq<cr>
 nnoremap <leader>e :quit<cr>
 nnoremap <leader>E :quit!<cr>
