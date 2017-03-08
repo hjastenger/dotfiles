@@ -12,8 +12,10 @@ Plugin 'bufkill.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'delimitMate.vim'
 Plugin 'endwise.vim'
+Plugin 'FuzzyFinder'
 Plugin 'github-theme'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'L9'
 Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Solarized'
@@ -116,6 +118,40 @@ nnoremap <S-tab> <c-w>W
 noremap gn :bn<cr>
 noremap gp :bp<cr>
 noremap gd :BD<cr>
+
+" FuzzyFinder
+" Thank you Neil
+" http://stackoverflow.com/questions/4132956/is-there-an-easy-way-to-exclude-files-for-which-fuzzyfinder-searches
+" -----------------------------------------------------------------------------
+function! FufSetIgnore()
+
+    let ignorefiles = [ $HOME . "/.gitignore", ".gitignore" ]
+    let exclude_vcs = '\.(hg|git|bzr|svn|cvs)'
+    let ignore = '\v\~$'
+
+    for ignorefile in ignorefiles
+
+        if filereadable(ignorefile)
+            for line in readfile(ignorefile)
+                if match(line, '^\s*$') == -1 && match(line, '^#') == -1
+                    let line = substitute(line, '^/', '', '')
+                    let line = substitute(line, '\.', '\\.', 'g')
+                    let line = substitute(line, '\*', '.*', 'g')
+                    let ignore .= '|^' . line
+                endif
+            endfor
+        endif
+
+        let ignore .= '|^' . exclude_vcs
+        let g:fuf_coveragefile_exclude = ignore
+        let g:fuf_file_exclude = ignore
+        let g:fuf_dir_exclude = ignore
+
+    endfor
+endfunction
+
+nnoremap <leader>ff :call FufSetIgnore() <BAR> :FufFile **/<cr>
+nnoremap <leader>fb :FufBuffer <cr>
 
 " Reload VIM
 nnoremap <leader>r :so $MYVIMRC<cr>
