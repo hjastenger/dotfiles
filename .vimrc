@@ -3,18 +3,6 @@ set nocompatible              " be iMproved, required
 set number              " set line numbers
 filetype off                  " required
 
-set tabstop=2
-
-" tab indents are 2
-set shiftwidth=2
-
-" columns for a tab
-set softtabstop=2
-
-" expand existing tabs to spaces
-set expandtab
-
-set shell=/bin/sh
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -59,8 +47,21 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 set undodir=~/.vim/undo
 
-set scrolloff=5
+set colorcolumn=115
+set tabstop=2
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set list
 
+" tab indents are 2
+set shiftwidth=2
+
+" columns for a tab
+set softtabstop=2
+
+" expand existing tabs to spaces
+set expandtab
+
+set shell=/bin/sh
 " change cursor when in insert mode (also works in tmux)
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
