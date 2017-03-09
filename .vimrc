@@ -12,7 +12,7 @@ Plugin 'bufkill.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'delimitMate.vim'
 Plugin 'endwise.vim'
-Plugin 'FuzzyFinder'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'github-theme'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'L9'
@@ -43,8 +43,10 @@ set mouse=a
 set scrolloff=5
 set ttyfast
 
-set backup                         " enable backup
-set undofile                       " enable persistent undo
+" enable backup
+set backup
+" enable persistent undo
+set undofile
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 set undodir=~/.vim/undo
@@ -119,39 +121,10 @@ noremap gn :bn<cr>
 noremap gp :bp<cr>
 noremap gd :BD<cr>
 
-" FuzzyFinder
-" Thank you Neil
-" http://stackoverflow.com/questions/4132956/is-there-an-easy-way-to-exclude-files-for-which-fuzzyfinder-searches
-" -----------------------------------------------------------------------------
-function! FufSetIgnore()
-
-    let ignorefiles = [ $HOME . "/.gitignore", ".gitignore" ]
-    let exclude_vcs = '\.(hg|git|bzr|svn|cvs)'
-    let ignore = '\v\~$'
-
-    for ignorefile in ignorefiles
-
-        if filereadable(ignorefile)
-            for line in readfile(ignorefile)
-                if match(line, '^\s*$') == -1 && match(line, '^#') == -1
-                    let line = substitute(line, '^/', '', '')
-                    let line = substitute(line, '\.', '\\.', 'g')
-                    let line = substitute(line, '\*', '.*', 'g')
-                    let ignore .= '|^' . line
-                endif
-            endfor
-        endif
-
-        let ignore .= '|^' . exclude_vcs
-        let g:fuf_coveragefile_exclude = ignore
-        let g:fuf_file_exclude = ignore
-        let g:fuf_dir_exclude = ignore
-
-    endfor
-endfunction
-
-nnoremap <leader>ff :call FufSetIgnore() <BAR> :FufFile **/<cr>
-nnoremap <leader>fb :FufBuffer <cr>
+"ctrl
+" Use gitignore to exclude files and directories from search listing
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>ff :CtrlP<cr>
 
 " Reload VIM
 nnoremap <leader>r :so $MYVIMRC<cr>
@@ -161,7 +134,7 @@ nnoremap <leader>s :w<cr>
 nnoremap <leader>S :wq<cr>
 nnoremap <leader>e :quit<cr>
 nnoremap <leader>E :quit!<cr>
-nnoremap <leader>A :Autoformat<cr>
+nnoremap <leader>ft :Autoformat<cr>
 
 " ,o add empty line below without entering insert mode
 nnoremap <leader>o o<ESC>
