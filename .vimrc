@@ -1,6 +1,5 @@
 let t_Co=256
 set nocompatible              " be iMproved, required
-set number              " set line numbers
 filetype off                  " required
 
 
@@ -12,6 +11,7 @@ Plugin 'bufkill.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'delimitMate.vim'
 Plugin 'endwise.vim'
+Plugin 'Yggdroot/indentLine'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'github-theme'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -34,27 +34,31 @@ let mapleader = ","
 
 filetype plugin indent on    " required
 filetype plugin on
-set background=light
+
+syntax on
+set background=dark
+let g:solarized_termtrans=1
 colorscheme solarized
 
 set clipboard=unnamed
+" set guifont=Source\ Code\ Pro\ for\ Powerline:h16
 
 set mouse=a
 set scrolloff=5
 set ttyfast
 
-" enable backup
-set backup
-" enable persistent undo
-set undofile
+set backup                         " enable backup
+set undofile                       " enable persistent undo
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 set undodir=~/.vim/undo
 
 set colorcolumn=115
 set tabstop=2
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-set list
+" show invisible chars
+" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+" show newline
+" set list
 
 " tab indents are 2
 set shiftwidth=2
@@ -65,7 +69,9 @@ set softtabstop=2
 " expand existing tabs to spaces
 set expandtab
 
+" set shell to bash
 set shell=/bin/sh
+
 " change cursor when in insert mode (also works in tmux)
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -107,7 +113,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 let g:airline_theme='solarized'
-let g:solarized_termcolors = 256
+" let g:airline_powerline_fonts = 1
 
 " Use jj to escape
 imap jj <Esc>
@@ -116,15 +122,18 @@ imap jj <Esc>
 nnoremap <tab> <c-w>w
 nnoremap <S-tab> <c-w>W
 
+" Toggle numbers
+nnoremap <leader>tn :set number!<cr>
+
 " Buffer management
 noremap gn :bn<cr>
 noremap gp :bp<cr>
 noremap gd :BD<cr>
 
-"ctrl
-" Use gitignore to exclude files and directories from search listing
+"CtrlP add file from .gitignore
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 nnoremap <leader>ff :CtrlP<cr>
+nnoremap <leader>fb :CtrlPBuffer<cr>
 
 " Reload VIM
 nnoremap <leader>r :so $MYVIMRC<cr>
@@ -139,5 +148,8 @@ nnoremap <leader>ft :Autoformat<cr>
 " ,o add empty line below without entering insert mode
 nnoremap <leader>o o<ESC>
 
-" " ,O add empty line below without entering insert mode
+" ,O add empty line below without entering insert mode
 nnoremap <leader>O O<ESC>
+
+" indentline character
+let g:indentLine_char = '│'
