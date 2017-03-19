@@ -53,7 +53,6 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 set undodir=~/.vim/undo
 
-set colorcolumn=115
 set tabstop=2
 " show invisible chars
 " set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
@@ -122,7 +121,7 @@ imap jj <Esc>
 nnoremap <tab> <c-w>w
 nnoremap <S-tab> <c-w>W
 
-" Toggle numbers
+" Toggle line numbers
 nnoremap <leader>tn :set number!<cr>
 
 " Buffer management
@@ -145,6 +144,9 @@ nnoremap <leader>e :quit<cr>
 nnoremap <leader>E :quit!<cr>
 nnoremap <leader>ft :Autoformat<cr>
 
+" VIM fugitive
+nnoremap <leader>gs :Gstatus<cr><C-w>20+
+
 " ,o add empty line below without entering insert mode
 nnoremap <leader>o o<ESC>
 
@@ -153,3 +155,21 @@ nnoremap <leader>O O<ESC>
 
 " indentline character
 let g:indentLine_char = '│'
+" Press F6 to toggle color column
+
+" Toggle colorcolumn
+nnoremap <leader>tc :call <SID>ToggleColorColumn()<cr>
+set colorcolumn=115
+set tw=79       " width of document (used by gd)
+set nowrap      " don't automatically wrap on load
+set fo-=t       " don't automatically wrap text when typing
+let s:color_column_old = 0
+function! s:ToggleColorColumn()
+  if s:color_column_old == 0
+    let s:color_column_old = &colorcolumn
+    windo let &colorcolumn = 0
+  else
+    windo let &colorcolumn=s:color_column_old
+    let s:color_column_old = 0
+  endif
+endfunction
